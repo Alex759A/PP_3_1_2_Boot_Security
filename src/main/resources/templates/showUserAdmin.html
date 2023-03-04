@@ -1,0 +1,19 @@
+</head>
+<body>
+
+<h2>Show User page!</h2>
+<br/>
+<h2>
+    <p th:text="${user.getId()}">VALUE</p>
+    <p th:text="${user.getFirstName()}">VALUE</p>
+    <p th:text="${user.getLastName()}">VALUE</p>
+    <p th:text="${user.getEmail()}">VALUE</p>
+</h2>
+<br/>
+<br/>
+<form th:action="@{/logout}" th:method="POST">
+    <input type="submit" value="LOGOUT" />
+</form>
+
+</body>
+</html>
