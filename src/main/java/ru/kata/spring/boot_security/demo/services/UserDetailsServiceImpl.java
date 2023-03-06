@@ -1,6 +1,8 @@
 package ru.kata.spring.boot_security.demo.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -13,11 +15,7 @@ import ru.kata.spring.boot_security.demo.repositories.RoleRepository;
 import ru.kata.spring.boot_security.demo.repositories.UserRepository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-
-
+import java.util.*;
 
 
 @Service
@@ -40,8 +38,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if (userNameLogin == null) {
             throw new UsernameNotFoundException("User not found");
         }
-        return userNameLogin;
+        Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
+        for (Role role : userNameLogin.getRoles()) {
+            grantedAuthorities.add(new SimpleGrantedAuthority(role.getName()));
+        }
+        return new org.springframework.security.core.userdetails.User(userNameLogin.getUsername(), userNameLogin.getPassword(), grantedAuthorities);
     }
+
 
     public User findOne(Long userId) {
         Optional<User> userFromDb = userRepository.findById(userId);
