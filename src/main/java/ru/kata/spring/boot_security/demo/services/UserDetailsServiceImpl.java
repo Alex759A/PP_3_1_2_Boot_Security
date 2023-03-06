@@ -19,7 +19,7 @@ import java.util.Optional;
 
 
 
-// сервис загружает пользователя
+
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
@@ -85,50 +85,3 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
 
 
-
-//    @Override
-//    public void updateUser(Long userId, User updateUser) {
-//        User userToBeUpdate = userRepository.getById(userId);
-//        userToBeUpdate.setUsername(updateUser.getUsername());
-//        userToBeUpdate.setPassword(bCryptPasswordEncoder.encode(updateUser.getPassword()));
-//        userToBeUpdate.setRoles((Set<Role>) updateUser.getRoles());
-//        userRepository.save(userToBeUpdate);
-////        userToBeUpdate.setPassword(bCryptPasswordEncoder.encode(updateUser.getPassword()));
-////        userToBeUpdate.setRoles(Collections.singleton(new Role(1L, "ROLE_USER")));
-//    }
-
-
-
-
-    //    @Override
-//    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-//        User person = userRepository.findByUsername(s);
-//
-//        if (person.isEmpty())
-//            throw new UsernameNotFoundException("User not found");
-//
-//        return new UserDetails(user.get());
-//    }
-
-
-//        return new org.springframework.security.core.userdetails.User(user.getFirstName(), user.getLastName(),
-//                mapRolesAutorities(user.getRoles()));
-//    }
-
-//    @Override
-//    @Transactional
-//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-//        User user = findByUsername(username).orElseThrow(() -> new UsernameNotFoundException(String.format("User '%s' not found", username)));
-//        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), mapRolesToAuthorities(user.getRoles()));
-//    }    @Override
-//    @Transactional
-//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-//        User user = findByUsername(username).orElseThrow(() -> new UsernameNotFoundException(String.format("User '%s' not found", username)));
-//        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), mapRolesToAuthorities(user.getRoles()));
-//    }
-
-//    // метод из пачки ролей делает пачку авторитис
-//    private Collection<? extends GrantedAuthority> mapRolesAutorities(Collection<Role> roles) {
-//        return roles.stream().map(r -> new SimpleGrantedAuthority(r.getRole())).collect(Collectors.toList());
-//    }
-//}

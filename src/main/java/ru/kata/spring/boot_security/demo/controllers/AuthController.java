@@ -30,33 +30,26 @@ public class AuthController {
         this.userValidator = userValidator;
     }
 
-    // метод обработчик аутентификации
-    // .loginProcessingUrl("/process_login") // своб.адрес--обрабатывает спринг
     @GetMapping("/login")
     public String loginPage() {
         return "auth/login";
     }
 
-    // методы обработки регистрации польз...(в модель пустой юзер (@ModelAttribute--позволяет это сделать))
+
     @GetMapping("/registration")
-//    public String registrationPage(@ModelAttribute("user") User user) {
     public String registration(Model model) {
-        System.out.println("Это метод регистрации");
         model.addAttribute("user", new User());
         return "/auth/registration";
     }
-//     обработчик пришедших данных с формы регистрации
+
     @PostMapping("/registration")
     public String performRegistration(@ModelAttribute("user") @Valid User user,
                                       BindingResult bindingResult) {
-        System.out.println("Мет од перед валидацией");
         userValidator.validate(user, bindingResult);
-        if (bindingResult.hasErrors()) { /// если есть ошибки -- на стр регистрации не сохраняя
+        if (bindingResult.hasErrors()) {
             return "/auth/registration";
         }
-        System.out.println("Metod performRegistration");
-        registrationService.register(user); // вызов своего метода регистрации
-        System.out.println("Metod performRegistration2");
+        registrationService.register(user);
         return "redirect:/";
     }
     @GetMapping("/show")
@@ -78,20 +71,4 @@ public class AuthController {
 
 
 
-////    @PostMapping //("/registration")
-////    public String addUser(@ModelAttribute("userForm") @Valid User userForm, BindingResult bindingResult, Model model) {
-////
-////        if (bindingResult.hasErrors()) {
-////            return "registration";
-////        }
-////        if (!userForm.getPassword().equals(userForm.getPasswordConfirm())){
-////            model.addAttribute("passwordError", "Пароли не совпадают");
-////            return "registration";
-////        }
-////        if (!userService.saveUser(userForm)){
-////            model.addAttribute("usernameError", "Пользователь с таким именем уже существует");
-////            return "registration";
-////        }
-////
-////        return "redirect:/";
-////    }
+

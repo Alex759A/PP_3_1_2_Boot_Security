@@ -3,9 +3,7 @@ package ru.kata.spring.boot_security.demo.entities;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
-import java.util.Collection;
+
 import java.util.Set;
 
 @Entity
@@ -34,6 +32,11 @@ public class Role implements GrantedAuthority{
         this.name = name;
     }
 
+    @Override
+    public String getAuthority() {
+        return getName();
+    }
+
     public long getId() {
         return id;
     }
@@ -50,25 +53,10 @@ public class Role implements GrantedAuthority{
         this.name = name;
     }
 
-    @Override
-    public String getAuthority() {
-        return getName();
+    public Set<User> getUsers() {
+        return users;
     }
-
- //   public Set<User> getUsers() {
-//        return users;
-//    }
-
-//    public void setUsers(Set<User> users) {
-//        this.users = users;
-//    }
-//    public Collection<User> getUsersList() {
-//        return users;
-//    }
-//
-//    public void setUsersList(Collection<User> usersList) {
-//        this.users = usersList;
-//    }
-
-
+    public void setUsers(Set<User> users) {
+        this.users = users;
+    }
 }

@@ -15,20 +15,19 @@ public class UserValidator implements Validator {
     public UserValidator(UserDetailsServiceImpl userDetailsService) {
         this.userDetailsService = userDetailsService;
     }
-    // указывает на класс которому нужен валидатор
+
     @Override
     public boolean supports(Class<?> clazz) {
         return User.class.equals(clazz);
     }
-    // проверка в БД на наличие-отсутствие человека
-    // если искл выбросилось, значит человек не найден в таблице
+
     @Override
     public void validate(Object target, Errors errors) {
         User user = (User) target;
         try {
             userDetailsService.loadUserByUsername(user.getUsername());
         } catch (UsernameNotFoundException ignored) {
-            return; // пользователь не найден
+            return;
         }
         errors.rejectValue("username", "", "Пользователь с таким именем--существует");
     }
