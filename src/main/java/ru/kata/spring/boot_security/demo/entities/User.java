@@ -86,9 +86,8 @@ public class User  implements UserDetails {
         return roles.stream().map(r -> new SimpleGrantedAuthority(r.getName())).collect(Collectors.toList());
     }
 
-//    @ManyToMany(fetch = FetchType.LAZY)
-    @ManyToMany(fetch = FetchType.EAGER)
-    @Fetch(FetchMode.JOIN)
+
+    @ManyToMany
     @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id"),
     inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;

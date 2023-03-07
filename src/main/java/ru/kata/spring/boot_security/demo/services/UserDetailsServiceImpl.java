@@ -1,8 +1,7 @@
 package ru.kata.spring.boot_security.demo.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
+
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -31,31 +30,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private PasswordEncoder passwordEncoder;
 
     @Override
-    @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User userNameLogin = userRepository.findByUsername(username);
-
+        User userNameLogin = userRepository.findByUserNameAndFetchRoles(username);
         if (userNameLogin == null) {
             throw new UsernameNotFoundException("User not found");
         }
-        return userNameLogin;
+            return userNameLogin;
     }
-
-//    @Override
-//    @Transactional
-//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-//        User userNameLogin = userRepository.findByUsername(username);
-//
-//        if (userNameLogin == null) {
-//            throw new UsernameNotFoundException("User not found");
-//        }
-//        Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-//        for (Role role : userNameLogin.getRoles()) {
-//            grantedAuthorities.add(new SimpleGrantedAuthority(role.getName()));
-//        }
-//        return new org.springframework.security.core.userdetails.User(userNameLogin.getUsername(), userNameLogin.getPassword(), grantedAuthorities);
-//    }
-
 
     public User findOne(Long userId) {
         Optional<User> userFromDb = userRepository.findById(userId);

@@ -30,7 +30,6 @@ public class UsersController {
     @GetMapping
     public String userList(Model model) {
         model.addAttribute("users", userService.findAll());
-
         return "admin";
     }
 
@@ -58,7 +57,6 @@ public class UsersController {
                              BindingResult bindingResult) { // проверка на валидность введ данных
         if (bindingResult.hasErrors())
             return "newUser";
-        System.out.println("Это createUser ");
         userService.saveUser(user); // addUser(user);
         return "redirect:/admin";
 

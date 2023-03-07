@@ -59,7 +59,6 @@ public class AuthController {
         model.addAttribute("user", u);
         return "show";
     }
-
 }
 
 
