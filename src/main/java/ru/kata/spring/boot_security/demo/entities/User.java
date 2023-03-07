@@ -37,6 +37,8 @@ public class User  implements UserDetails {
     @Size(min = 2, max = 30, message = "Name should be betwen 2 and 30 characters")
     private String firstName;
 
+
+
     @Column(name = "last_name")
     @NotEmpty(message = "Name should note be empty!")
     @Size(min = 2, max = 30, message = "Name should be betwen 2 and 30 characters")
@@ -47,13 +49,17 @@ public class User  implements UserDetails {
     @Email(message = "Email should be valid!")
     private String email;
 
+    @Column(name="age")
+    private Long age;
+
     public User() {
     }
 
-    public User(String firstName, String lastName, String email) {
+    public User(String firstName, String lastName, String email, Long age) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        this.age = age;
     }
 
     @Override
@@ -80,7 +86,9 @@ public class User  implements UserDetails {
         return roles.stream().map(r -> new SimpleGrantedAuthority(r.getName())).collect(Collectors.toList());
     }
 
-    @ManyToMany(fetch = FetchType.LAZY)
+//    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
+    @Fetch(FetchMode.JOIN)
     @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id"),
     inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
@@ -147,5 +155,13 @@ public class User  implements UserDetails {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public Long getAge() {
+        return age;
+    }
+
+    public void setAge(Long age) {
+        this.age = age;
     }
 }

@@ -4,6 +4,9 @@
 <head>
   <meta charset="UTF-8">
   <title>List users</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css">
 </head>
 <body>
 
@@ -12,18 +15,19 @@
   <table bgcolor="#f0e68c" border="4">
 
     <caption>
-      <h3>List peoples</h3>
+      <h3>Admin panel</h3>
     </caption>
     <tr>
-      <th> Number </th>
-      <th> Name </th>
-      <th> Surname </th>
-      <th> email </th>
-      <th> login </th>
-      <th> password </th>
-      <th> role </th>
-      <th> update </th>
-      <th> delete </th>
+      <th> ID </th>
+      <th> First Name </th>
+      <th> Last name </th>
+      <th> Age </th>
+      <th> Email </th>
+<!--      <th> login </th>-->
+<!--      <th> password </th>-->
+      <th> Role </th>
+      <th> Edit </th>
+      <th> Delete </th>
       <th> show user </th>
 
 
@@ -35,25 +39,26 @@
 
       <td style="text-align: center"  th:text="${user.getLastName()}"></td>
 
+      <td style="text-align: center"  th:text="${user.getAge()}"></td>
+
       <td style="text-align: center" th:text="${user.getEmail()}"></td>
 
-      <td style="text-align: center" th:text="${user.getUsername()}"></td>
+<!--      <td style="text-align: center" th:text="${user.getUsername()}"></td>-->
 
-      <td style="text-align: center" th:text="${user.getPassword()}"></td>
+<!--      <td style="text-align: center" th:text="${user.getPassword()}"></td>-->
+
       <td style="text-align: center" th:text="${user.getAuthorities()}"></td>
 
 
       <td>
-      <a style="text-align: center" th:href="@{/admin/{id}/edit(id=${user.getId()})}" th:text="update">us</a>
+      <a style="text-align: center" th:href="@{/admin/{id}/edit(id=${user.getId()})}" th:text="Edit">us</a>
       </td>
-
-
       <td>
-        <a style="text-align: center" th:href="@{/admin/del{idDelete}(idDelete=${user.getId()})}" th:text="delete">us</a>
+        <a style="text-align: center" th:href="@{/admin/del{idDelete}(idDelete=${user.getId()})}" th:text="Delete">us</a>
       </td>
 
       <td>
-        <a style="text-align: center" th:href="@{/admin/{idShow}(idShow=${user.getId()})}" th:text="show_user">us</a>
+        <a style="text-align: center" th:href="@{/admin/{idShow}(idShow=${user.getId()})}" th:text="Show_user">us</a>
       </td>
 
 
@@ -65,12 +70,19 @@
 <br/>
 <hr/>
 
-<a href="/admin/new"><h3>Create new user</h3>></a>
+<a href="/admin/new"><h3>New user</h3>></a>
 <br/>
 <br/>
 <form th:action="@{/logout}" th:method="POST">
   <input type="submit" value="LOGOUT" />
 </form>
+
+
+
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+   <script>
 
 </body>
 </html>
