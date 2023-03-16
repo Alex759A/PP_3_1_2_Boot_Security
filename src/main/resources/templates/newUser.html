@@ -1,55 +1,164 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
 <html lang="en">
+<html
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="http://www.thymeleaf.org"
+>
 <head>
-    <meta charset="UTF-8">
-    <title>New User</title>
+    <meta charset="UTF-8" />
+    <title>Admin panel</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+            rel="stylesheet"
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+    <link
+            rel="stylesheet"
+            type="text/css"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css"
+    />
 </head>
 <body>
+<nav class="navbar navbar-dark bg-dark fixed top">
+    <div class="d-flex text-white">
+        <div class="p-2 w-100 bg-dark fs-5">
+            <ul class="nav justify-content-left" th:object="${user}">
+                <div>
+                    <strong>
+                        <td th:text="${user.getUsername()}"></td>
+                    </strong>
+                </div>
+                <div>&nbsp;with roles:&nbsp;</div>
+                <div>
+                    <td>
+                        <th:block th:each="role : ${user.getRoles()}">
+                    <span th:switch="${role.getName()}">
+                      <span th:case="'ROLE_ADMIN'"> ADMIN </span>
+                      <span th:case="'ROLE_USER'"> USER </span>
+                    </span>
+                        </th:block>
+                    </td>
+                </div>
+            </ul>
+        </div>
+    </div>
 
-<form th:method="POST" th:action="@{/admin}" th:object="${user}">
+    <div class="float-right" bg-dark>
+        <form th:action="@{/logout}" th:method="POST" class="card-link">
+            <input type="submit" value="Logout" />
+        </form>
+    </div>
+</nav>
+<!--        основной блок-->
+<div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2">
+                <button type="button" class="btn btn-primary btn-lg btn-block">
+                    Admin
+                </button>
+                <form action="/" method="get" target="_self">
+                    <button type="submit" class="btn btn-light btn-lg btn-block">
+                        User
+                    </button>
+                </form>
+            </div>
 
+            <div class="col-md-10">
+                <div class="md-col-12">
 
-    <label for="username"> Enter login   </label>
-    <input type="text" th:field="*{username}" id="username">
-    <div style="color:red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Login Error</div>
-    <br/>
-    <br/>
-<!--    <label for="password"> Password   </label>-->
-<!--    <input type="text" th:field="*{password}" id="password">-->
-<!--    <div style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</div>-->
-<!--    <br/>-->
-<!--    <br/>-->
+                    <h2>Admin panel</h2>
 
-    <label for="firstName"> First name   </label>
-    <input type="text" th:field="*{firstName}" id="firstName">
-    <div style="color:red" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">Name Error</div>
-    <br/>
-    <br/>
-    <label for="lastName"> Lastname </label>
-    <input type="text" th:field="*{lastName}" id="lastName">
-    <div style="color:red" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Surname Error</div>
-    <br/>
-    <br/>
-    <label for="email">  Age </label>
-    <input type="text" th:field="*{age}" id="age">
-    <div style="color:red"th:if="${#fields.hasErrors('age')}" th:errors="*{age}">Age Error</div>
-    <br/>
-    <br/>
-    <label for="email"> Email </label>
-    <input type="text" th:field="*{email}" id="email">
-    <div style="color:red"th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</div>
-    <br/>
-    <br/>
-    <label for="password"> Password   </label>
-    <input type="text" th:field="*{password}" id="password">
-    <div style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</div>
-    <br/>
-    <br/>
+                    <div class="col-md-12" style="background-color: #f6f6fa">
 
-    <input type="submit" value="Add new user"/>
+                        <form action="/admin" method="get" target="_self">
+                            <button type="submit" class="btn btn-light" data-togle="modal" data-target="">Users table</button>
 
-</form>
+                            <button id="create-user" type="submit" class="btn btn-light" data-toggle="modal" data-target="#modalNewUser"> New User</button>
+                        </form>
 
+                        <table class="table shadow">
+                        </table>
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h5>Add new user</h5>
+                            </div>
+
+                            <div class="card-body">
+                                <form style="margin:0 auto; text-align: center; width: 300px"
+                                      th:method="POST" th:action="@{/admin/new}" th:object="${user}">
+
+                                    <div class="form-group">
+                                        <label for="username"><strong>Login</strong></label>
+                                        <input type="text" th:field="*{username}" class="form-control" id="username"
+                                               placeholder="Login">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="firstname"><strong>First name</strong></label>
+                                        <input type="text" th:field="*{firstName}" class="form-control" id="firstname"
+                                               placeholder="First name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="lastname"><strong>Last name</strong></label>
+                                        <input type="text" th:field="*{lastName}" class="form-control" id="lastname" placeholder="Last name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="age"><strong>Age</strong></label>
+                                        <input type="text" th:field="*{age}" class="form-control" id="age" placeholder="Age">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email"><strong>Email</strong></label>
+                                        <input type="email" th:field="*{email}" class="form-control" id="email" placeholder="Email">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="password"><strong>Password</strong></label>
+                                        <input type="password" th:field="*{password}" class="form-control" id="password" placeholder="Password">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="roles"><strong>Role</strong></label>
+                                        <select class="custom-select" name="roles" id="roles">
+                                            <option selected>Role</option>
+                                            <option value="1">ADMIN</option>
+                                            <option value="2">GUEST</option>
+                                            <option value="3">USER</option>
+
+                                        </select>
+
+                                    </div>
+                                    <button type="submit" class="card text-white"
+                                            style="font-size:130%;
+                                            width:auto;
+                                            height: 45px;
+                                            background-color: green;margin:0 auto;">
+                                        Add new user
+                                    </button>
+                                </form>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous">
+</script>
+<script
+        src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous">
+</script>
 </body>
 </html>
+

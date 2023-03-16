@@ -18,13 +18,11 @@ import javax.validation.Valid;
 @Controller
 @RequestMapping("/auth")
 public class AuthController {
-    private final UserRepository userRepository;
     private final UserDetailsServiceImpl userDetailsService;
     private final RegistrationService registrationService;
     private final UserValidator userValidator;
     @Autowired
-    public AuthController(UserRepository userRepository, UserDetailsServiceImpl userDetailsService, RegistrationService registrationService, UserValidator userValidator) {
-        this.userRepository = userRepository;
+    public AuthController( UserDetailsServiceImpl userDetailsService, RegistrationService registrationService, UserValidator userValidator) {
         this.userDetailsService = userDetailsService;
         this.registrationService = registrationService;
         this.userValidator = userValidator;
@@ -50,12 +48,12 @@ public class AuthController {
             return "/auth/registration";
         }
         registrationService.register(user);
-        return "redirect:/";
+        return "redirect:/admin";
     }
     @GetMapping("/show")
     public String show(@ModelAttribute("user") User user, Model model) {
         String name = SecurityContextHolder.getContext().getAuthentication().getName();
-        User u = (User) userRepository.findByUsername(name);
+        User u = (User) userDetailsService.loadUserByUsername(name);
         model.addAttribute("user", u);
         return "show";
     }

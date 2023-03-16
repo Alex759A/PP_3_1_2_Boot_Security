@@ -1,7 +1,6 @@
 package ru.kata.spring.boot_security.demo.entities;
 
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,8 +15,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Entity
-@Table(name = "users")
-public class User  implements UserDetails {
+@Table(name="users")
+public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -60,6 +59,7 @@ public class User  implements UserDetails {
         this.lastName = lastName;
         this.email = email;
         this.age = age;
+
     }
 
     @Override
@@ -84,6 +84,7 @@ public class User  implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles.stream().map(r -> new SimpleGrantedAuthority(r.getName())).collect(Collectors.toList());
+//        return (Collection<? extends GrantedAuthority> (List) getRoles());
     }
 
 
@@ -92,9 +93,9 @@ public class User  implements UserDetails {
     inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
-    private Collection<? extends GrantedAuthority> mapRolesAutorities(Set<Role> roles) {
-        return roles.stream().map(r -> new SimpleGrantedAuthority(r.getName())).collect(Collectors.toList());
-    }
+ //   public Collection<? extends GrantedAuthority> mapRolesAutorities(Set<Role> roles) {
+//        return roles.stream().map(r -> new SimpleGrantedAuthority(r.getName())).collect(Collectors.toList());
+//    }
 
     public Long getId() {
         return id;

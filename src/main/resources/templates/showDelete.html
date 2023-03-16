@@ -1,22 +1,22 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>User delete</title>
-</head>
-<body>
-    <h3>User delete</h3>
-    <p th:text="${user.getId()}">VALUE</p>
-    <p th:text="${user.getFirstName()}">VALUE</p>
-    <p th:text="${user.getLastName()}">VALUE</p>
-    <p th:text="${user.getAge()}">VALUE</p>
-    <p th:text="${user.getEmail()}">VALUE</p>
-    <p th:text="${user.getAuthorities()}">VALUE</p>
+<!--<!DOCTYPE html>-->
+<!--<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--  <meta charset="UTF-8">-->
+<!--  <title>User delete</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--    <h3>User delete</h3>-->
+<!--    <p th:text="${user.getId()}">VALUE</p>-->
+<!--    <p th:text="${user.getFirstName()}">VALUE</p>-->
+<!--    <p th:text="${user.getLastName()}">VALUE</p>-->
+<!--    <p th:text="${user.getAge()}">VALUE</p>-->
+<!--    <p th:text="${user.getEmail()}">VALUE</p>-->
+<!--    <p th:text="${user.getAuthorities()}">VALUE</p>-->
 
-    <form th:method="DELETE" th:action="@{/admin/{id}(id=${user.getId()})}">
-        <input type="submit" value="DELETE"/>
-    </form>
+<!--    <form th:method="DELETE" th:action="@{/admin/{id}(id=${user.getId()})}">-->
+<!--        <input type="submit" value="DELETE"/>-->
+<!--    </form>-->
 
-</body>
-</html>
+<!--</body>-->
+<!--</html>-->

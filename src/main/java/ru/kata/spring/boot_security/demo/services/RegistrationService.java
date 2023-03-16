@@ -26,7 +26,7 @@ public class RegistrationService {
 
     @Transactional
     public boolean  register(User user) {
-        User userFromDB = userRepository.findByUsername(user.getUsername());
+        User userFromDB = userRepository.findByUserNameAndFetchRoles(user.getUsername());
         if (userFromDB != null) {
             return false;
         }
