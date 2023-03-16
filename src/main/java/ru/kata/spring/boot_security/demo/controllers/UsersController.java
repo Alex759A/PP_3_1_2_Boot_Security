@@ -39,7 +39,7 @@ public class UsersController {
         String name = SecurityContextHolder.getContext().getAuthentication().getName();
         User u = (User) userService.loadUserByUsername(name);
         model.addAttribute("user", u);
-        System.out.println("Это метод индекс");
+
         return "index";
     }
 
@@ -48,11 +48,10 @@ public class UsersController {
                          BindingResult bindingResult,@PathVariable("id") Long id) {
 
         if (bindingResult.hasErrors()) {
-            System.out.println(bindingResult.toString());
+            System.out.println(bindingResult);
             return "index";
         }
         userService.update(id, user);
-        System.out.println("-----------update");
         return "redirect:/";
     }
 
