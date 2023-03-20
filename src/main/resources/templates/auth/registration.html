@@ -1,3 +1,153 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<html
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+  <meta charset="UTF-8" />
+  <title>Registration</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link
+          rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+  />
+  <link
+          rel="stylesheet"
+          type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css"
+  />
+</head>
+<body>
+<nav class="navbar navbar-dark bg-dark fixed top">
+  <div class="d-flex text-white">
+    <div class="p-2 w-100 bg-dark fs-5">
+      <ul class="nav justify-content-left" th:object="${user}">
+
+        <div>&nbsp;Registration panel&nbsp;</div>
+
+      </ul>
+    </div>
+  </div>
+
+  <div class="float-right" bg-dark>
+    <form th:action="@{/logout}" th:method="POST" class="card-link">
+      <input type="submit" value="Logout" />
+    </form>
+  </div>
+</nav>
+<!--        основной блок-->
+<div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-2">
+        <button type="button" class="btn btn-primary btn-lg btn-block"disabled>
+          Admin
+        </button>
+        <form action="/" method="get" target="_self">
+          <button type="submit" class="btn btn-light btn-lg btn-block"disabled>
+            User
+          </button>
+        </form>
+      </div>
+
+      <div class="col-md-10">
+        <div class="md-col-12">
+
+          <div class="col-md-12" style="background-color: #f6f6fa">
+
+
+            <table class="table shadow">
+            </table>
+
+            <div class="card">
+              <div class="card-header">
+                <h5>Add new user</h5>
+              </div>
+
+              <div class="card-body">
+                <form style="margin:0 auto; text-align: center; width: 300px"
+                      th:method="POST" th:action="@{/auth/registration}" th:object="${user}">
+
+                  <div class="form-group">
+                    <label for="username"><strong>Login</strong></label>
+                    <input type="text" th:field="*{username}" class="form-control" id="username"
+                           placeholder="Login">
+                  </div>
+                  <div class="form-group">
+                    <label for="firstname"><strong>First name</strong></label>
+                    <input type="text" th:field="*{firstName}" class="form-control" id="firstname"
+                           placeholder="First name">
+                  </div>
+                  <div class="form-group">
+                    <label for="lastname"><strong>Last name</strong></label>
+                    <input type="text" th:field="*{lastName}" class="form-control" id="lastname" placeholder="Last name">
+                  </div>
+                  <div class="form-group">
+                    <label for="age"><strong>Age</strong></label>
+                    <input type="text" th:field="*{age}" class="form-control" id="age" placeholder="Age">
+                  </div>
+                  <div class="form-group">
+                    <label for="email"><strong>Email</strong></label>
+                    <input type="email" th:field="*{email}" class="form-control" id="email" placeholder="Email">
+                  </div>
+                  <div class="form-group">
+                    <label for="password"><strong>Password</strong></label>
+                    <input type="password" th:field="*{password}" class="form-control" id="password" placeholder="Password">
+                  </div>
+                  <div class="form-group">
+                    <label for="roles"><strong>Role</strong></label>
+                    <select class="custom-select" name="roles" id="roles">
+                      <option selected>Role</option>
+                      <option value="1">ADMIN</option>
+                      <option value="2">GUEST</option>
+                      <option value="3">USER</option>
+
+                    </select>
+
+                  </div>
+                  <button type="submit" class="card text-white"
+                          style="font-size:130%;
+                          width:auto;
+                          height: 45px;
+                          background-color: green;margin:0 auto;">
+                    Add new user
+                  </button>
+                </form>
+                </form>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous">
+</script>
+<script
+        src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous">
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
 <!--<!DOCTYPE html>-->
 <!--<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">-->
 <!--<html lang="en">-->
@@ -10,16 +160,16 @@
 <!--<form th:method="POST" th:action="@{/auth/registration}" th:object="${user}">-->
 
 
-<!--&lt;!&ndash;  <label for="username"> Enter login   </label>&ndash;&gt;-->
-<!--&lt;!&ndash;  <input type="text" th:field="*{username}" id="username">&ndash;&gt;-->
-<!--&lt;!&ndash;  <div style="color:red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Login Error</div>&ndash;&gt;-->
-<!--&lt;!&ndash;  <br/>&ndash;&gt;-->
-<!--&lt;!&ndash;  <br/>&ndash;&gt;-->
-<!--&lt;!&ndash;  <label for="password"> Enter password   </label>&ndash;&gt;-->
-<!--&lt;!&ndash;  <input type="text" th:field="*{password}" id="password">&ndash;&gt;-->
-<!--&lt;!&ndash;  <div style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</div>&ndash;&gt;-->
-<!--&lt;!&ndash;  <br/>&ndash;&gt;-->
-<!--&lt;!&ndash;  <br/>&ndash;&gt;-->
+<!--  <label for="username"> Enter login   </label>-->
+<!--  <input type="text" th:field="*{username}" id="username">-->
+<!--  <div style="color:red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Login Error</div>-->
+<!--  <br/>-->
+<!--  <br/>-->
+<!--  <label for="password"> Enter password   </label>-->
+<!--  <input type="text" th:field="*{password}" id="password">-->
+<!--  <div style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</div>-->
+<!--  <br/>-->
+<!--  <br/>-->
 
 <!--  <label for="firstName"> First name   </label>-->
 <!--  <input type="text" th:field="*{firstName}" id="firstName">-->

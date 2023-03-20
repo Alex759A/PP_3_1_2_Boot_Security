@@ -8,7 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.demo.entities.User;
-import ru.kata.spring.boot_security.demo.repositories.UserRepository;
+
 import ru.kata.spring.boot_security.demo.services.RegistrationService;
 import ru.kata.spring.boot_security.demo.services.UserDetailsServiceImpl;
 import ru.kata.spring.boot_security.demo.util.UserValidator;

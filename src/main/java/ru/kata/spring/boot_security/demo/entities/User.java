@@ -51,6 +51,11 @@ public class User implements UserDetails {
     @Column(name="age")
     private Long age;
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles;
+
     public User() {
     }
 
@@ -84,18 +89,10 @@ public class User implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles.stream().map(r -> new SimpleGrantedAuthority(r.getName())).collect(Collectors.toList());
-//        return (Collection<? extends GrantedAuthority> (List) getRoles());
     }
 
 
-    @ManyToMany
-    @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id"),
-    inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles;
 
- //   public Collection<? extends GrantedAuthority> mapRolesAutorities(Set<Role> roles) {
-//        return roles.stream().map(r -> new SimpleGrantedAuthority(r.getName())).collect(Collectors.toList());
-//    }
 
     public Long getId() {
         return id;

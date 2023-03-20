@@ -57,7 +57,7 @@
                     <div class="col-md-2" >
 
                         <button type="button" class="btn btn-primary btn-lg btn-block">Admin</button>
-                        <form action="/" method="get" target="_self">
+                        <form action="/user" method="get" target="_self">
                             <button type="submit" class="btn btn-light btn-lg btn-block">User</button>
                         </form>
 
@@ -75,7 +75,7 @@
                                         </div>
 
                                         <div class="col-md-2" style="background-color: #f6f6fa">
-                                            <form action="/new" method="get" target="_self">
+                                            <form action="admin/new" method="get" target="_self">
                                                 <button id="create-user" type="submit" class="btn btn-light" data-toggle="modal" data-target="#modalNewUser">New User</button>
                                             </form>
                                         </div>
@@ -216,6 +216,7 @@
                                                                                 id="email"
                                                                                 name="email"
                                                                         />
+
                                                                     </div>
 
                                                                     <div class="form-group">
@@ -249,7 +250,7 @@
                                                                     <div class="form-group">
                                                                         <label for="roles" ><strong>Role</strong></label>
                                                                         <select class="custom-select" name="roles" id="roles">
-                                                                            <option selected>Role</option>
+                                                                            <option selected>3</option>
                                                                             <option value="1">ADMIN</option>
                                                                             <option value="2">GUEST</option>
                                                                             <option value="3">USER</option>

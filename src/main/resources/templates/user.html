@@ -1,14 +1,140 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Spring Security Example</title>
+    <meta charset="UTF-8" />
+    <title>User view</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+            rel="stylesheet"
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+    <link
+            rel="stylesheet"
+            type="text/css"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css"
+    />
 </head>
+
 <body>
-<h1>User, welcome spring boot security page!</h1>
+<nav class="navbar navbar-dark bg-dark fixed top">
+    <div class="d-flex text-white">
+        <div class="p-2 w-100 bg-dark fs-5">
+            <ul class="nav justify-content-left" th:object="${user}">
+                <div>
+                    <strong>
+                        <td th:text="${user.getUsername()}"></td>
+                    </strong>
+                </div>
+                <div>&nbsp;with roles:&nbsp;</div>
+                <div>
+                    <td>
+                        <th:block th:each="role : ${user.getRoles()}">
+                  <span th:switch="${role.getName()}">
+                    <span th:case="'ROLE_ADMIN'"> ADMIN </span>
+                    <span th:case="'ROLE_USER'"> USER </span>
+                  </span>
+                        </th:block>
+                    </td>
+                </div>
+            </ul>
+        </div>
+    </div>
 
+    <div class="float-right" bg-dark>
+        <form th:action="@{/logout}" th:method="POST" class="card-link">
+            <input type="submit" value="Logout" />
+        </form>
+    </div>
+</nav>
+<div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2">
+                <button type="button" class="btn btn-primary btn-lg btn-block">
+                    User
+                </button>
+            </div>
+            <div class="col-md-10">
+                <div class="page-header">
+                    <h1>User information-page</h1>
+                </div>
 
-<a href="/"><h1>Relocation to index</h1></a>
+                <div class="card">
+                    <h5 class="card-header">About user</h5>
+                    <div class="card-body">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">FirstName</th>
+                                <th scope="col">LastName</th>
+                                <th scope="col">Age</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Role</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr style="background-color: rgba(58, 74, 74, 0.06)">
+                                <td th:text="${user.getId()}"></td>
+                                <td th:text="${user.getFirstName()}"></td>
+                                <td th:text="${user.getLastName()}"></td>
+                                <td th:text="${user.getAge()}"></td>
+                                <td th:text="${user.getEmail()}"></td>
+                                <td>
+                                    <th:block th:each="role : ${user.getRoles()}">
+                          <span th:switch="${role.getName()}">
+                            <span th:case="'ROLE_ADMIN'">ADMIN</span>
+                            <span th:case="'ROLE_USER'">USER</span>
+                          </span>
+                                    </th:block>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous">
+</script>
+<script
+        src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous">
+</script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

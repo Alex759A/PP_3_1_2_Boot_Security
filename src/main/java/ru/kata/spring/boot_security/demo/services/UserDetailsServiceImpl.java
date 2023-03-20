@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -12,24 +11,22 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ru.kata.spring.boot_security.demo.entities.Role;
 import ru.kata.spring.boot_security.demo.entities.User;
-import ru.kata.spring.boot_security.demo.repositories.RoleRepository;
+
 import ru.kata.spring.boot_security.demo.repositories.UserRepository;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+
 import java.util.*;
 
 
 
 @Service
-public class UserDetailsServiceImpl implements UserDetailsService {
+public class UserDetailsServiceImpl implements UserService {
 
-    @PersistenceContext
-    private EntityManager em;
     @Autowired
     UserRepository userRepository;
+
     @Autowired
-    RoleRepository roleRepository;
+    RoleServiceImpl roleService;
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -41,17 +38,18 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         }
             return userNameLogin;
     }
-
+    @Override
     public User findOne(Long userId) {
         Optional<User> userFromDb = userRepository.findById(userId);
         return userFromDb.orElse(new User());
     }
-
+    @Override
     public List<User> findAll() {
         return userRepository.findAll();
     }
 
     @Transactional
+    @Override
     public boolean saveUser(User user) {
         User userFromDB = userRepository.findByUserNameAndFetchRoles(user.getUsername());
         if (userFromDB != null) {
@@ -64,13 +62,14 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     }
 
     @Transactional
+    @Override
     public void update(Long id, User updateUser) {
         User updateNewUser = userRepository.findById(id).get();
 
         Set<Role> roles = updateNewUser.getRoles();
         for (Role x : updateUser.getRoles()) {
             long z = x.getId();
-            roles.add(roleRepository.getById(z));
+            roles.add(roleService.getById(z));
         }
         updateNewUser.setRoles(roles);
 
@@ -84,6 +83,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     }
 
     @Transactional
+    @Override
     public boolean delete(Long userId) {
         if (userRepository.findById(userId).isPresent()) {
             userRepository.deleteById(userId);
